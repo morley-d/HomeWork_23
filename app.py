@@ -1,3 +1,4 @@
+"""Основной файл приложения"""
 import os
 
 from flask import Flask
