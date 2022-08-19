@@ -1,7 +1,8 @@
 """Основной файл приложения"""
 import os
 
-from flask import Flask
+from flask import Flask, request
+from werkzeug.exceptions import BadRequest
 
 app = Flask(__name__)
 
@@ -15,4 +16,10 @@ def perform_query():
     # проверить, что файла file_name существует в папке DATA_DIR, при ошибке вернуть ошибку 400
     # с помощью функционального программирования (функций filter, map), итераторов/генераторов сконструировать запрос
     # вернуть пользователю сформированный результат
+    data = request.json
+    file_name = data['file_name']
+    if not os.path.exists(os.path.join(DATA_DIR, file_name)):
+        raise BadRequest
+
+
     return app.response_class('', content_type="text/plain")
